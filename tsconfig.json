@@ -1,0 +1,15 @@
+{
+  "files" : [
+    "index.ts",
+    "typings/index.d.ts"
+  ],
+  "compilerOptions": {
+    "module": "system",
+    "target": "es6",
+    "noImplicitAny": true,
+    "sourceMap": false
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

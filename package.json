@@ -1,0 +1,22 @@
+{
+  "name": "pixel-army",
+  "version": "0.0.1",
+  "description": "pixel-army",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rinick/pixel-army/pixel-army.git"
+  },
+  "author": {
+    "name": "Rick Zhou",
+    "email": "rinick@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+
+  },
+  "scripts": {
+
+  }
+}
