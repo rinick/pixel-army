@@ -55,11 +55,11 @@ void main() {
 }`;
 
     static move: string = `
-const vec2 DR[9] = vec2[]( vec2( 0.0, 0.0), vec2( 1.0, 0.0), vec2( 1.0, 1.0 ), vec2( 0.0, 1.0 ), vec2( -1.0, 1.0 ),
+const vec2 DIR[9] = vec2[]( vec2( 0.0, 0.0), vec2( 1.0, 0.0), vec2( 1.0, 1.0 ), vec2( 0.0, 1.0 ), vec2( -1.0, 1.0 ),
                            vec2( -1.0, 0.0), vec2( -1.0, -1.0 ), vec2( 0.0, -1.0 ), vec2( 1.0, -1.0 ));
-uniform sampler2D board;
-uniform sampler2D buff2;
-uniform sampler2D buff3;
+uniform sampler2D iChannel0;
+uniform sampler2D iChannel2;
+uniform sampler2D iChannel3;
 int findDirection(vec2 coord){
     for(int i=1; i<9; i++){
         
@@ -67,14 +67,39 @@ int findDirection(vec2 coord){
 }
 void main(){
     vec2 st = gl_FragCoord.xy/iResolution;
-    vec4 pt = texture2D( data, st);
+    vec4 pt = texture2D( iChannel0, st);
     flost side = floor(pt.x);
     if (side == 0.0) {
-        gl_FragColor = vec4(0.0,0.0,0.0,0.0);
+        gl_FragColor = pt;
     } else if (side == 1.0){
-    
+        int dir = findDirection(gl_FragCoord.xy);
+        if (dir == 0) {
+            pt.y = pt.y * 0.6;
+            gl_FragColor = pt; 
+        } else {
+            vec4 ptFrom = texture2D( iChannel0, st + gl_FragCoord.xy + DIR[dir]);
+            ptFrom.w = float(dir);
+            gl_FragColor = ptFrom;
+        }
     } else if (side == 2.0 || siode == 3.0) {
-    
+        float fdir;
+        if (side == 2.0) {
+            fdir = texture2D( iChannel2, st);
+        } else {
+            fdir = texture2D( iChannel3, st);
+        }
+        if (fdir < 1.0) {
+            pt.w = 0.0;
+            gl_FragColor = pt;
+        } else {
+            int dir2 = findDirection(gl_FragCoord.xy + DIR[int(fdir)]);
+            if (dir2 + floor(fdir) == 9.0) {
+                
+            } else {
+                pt.w = 0.0;
+                gl_FragColor = pt;
+            }
+        }
     }
 }
     

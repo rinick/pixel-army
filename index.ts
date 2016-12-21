@@ -21,7 +21,7 @@ var shader = new Shader(battle.stage, Algorithm.init_fill, {});
 shader.render(battle.board);
 
 
-Stage.updateUniforms({'data':battle.board.texture}, battle.stage.uniforms);
+Stage.updateUniforms({'iChannel0':battle.board.texture}, battle.stage.uniforms);
 
 
 function render() {

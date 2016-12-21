@@ -130,10 +130,10 @@ class Battle {
 
     constructor(canvasW: number, canvasH: number, w: number, h: number) {
         this.stage = new Stage(canvasW, canvasH, w, h, `
-uniform sampler2D data;
+uniform sampler2D iChannel0;
 void main(){
     vec2 st = gl_FragCoord.xy/iResolution;
-    float t = floor(texture2D( data, st ).x);
+    float t = floor(texture2D( iChannel0, st ).x);
     if (t == 1.0) {
         gl_FragColor = vec4(1.0,1.0,1.0,1.0);
     } else if (t == 2.0) {
@@ -143,7 +143,7 @@ void main(){
     } else {
         gl_FragColor = vec4(0.0,0.0,0.0,1.0);
     }  
-}`, {data: {type: "t", value: null, minFilter: THREE.NearestFilter}});
+}`, {iChannel0: {type: "t", value: null, minFilter: THREE.NearestFilter}});
 
         this.board = this.stage.newTarget();
         this.buff0 = this.stage.newTarget();
